@@ -15,4 +15,5 @@ type User struct {
 	Age         int32              `bson:"age" json:"age,omitempty"`
 	Password    string             `bson:"password" json:"password,omitempty"`
 	Avatar      string             `bson:"avatar" json:"avatar,omitempty"`
+	Validation  bool               `bson:"validate" json:"validate,omitempty"`
 }

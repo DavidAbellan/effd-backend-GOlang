@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/DavidAbellan/effd-backend-GOlang/middlew"
+	"github.com/DavidAbellan/effd-backend-GOlang/routers"
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
@@ -14,7 +15,7 @@ import (
 /*routesHandler setea el puerto, Handler y pone a escuchar al servidor*/
 func RoutesHandler() {
 	router := mux.NewRouter()
-	router.HandleFunc("/signin", middlew.DBCheck(routers.signin)).Methods("POST")
+	router.HandleFunc("/signin", middlew.DBCheck(routers.SignIn)).Methods("POST")
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = "8080"
