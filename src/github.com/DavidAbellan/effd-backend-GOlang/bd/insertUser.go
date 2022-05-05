@@ -18,7 +18,7 @@ func InsertUser(u models.User) (string, bool, error) {
 	defer cancel()
 
 	db := mongoCn.Database("efdd_database")
-	col := db.Collection("User")
+	col := db.Collection("user")
 
 	u.Password, _ = EncryptThePassword(u.Password)
 	u.Validation = false
