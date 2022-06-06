@@ -2,6 +2,7 @@ package bd
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/DavidAbellan/effd-backend-GOlang/models"
@@ -13,6 +14,7 @@ import (
 func ModifyUser(u models.User, ID string) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
+	fmt.Println("ID", ID)
 
 	db := mongoCn.Database("efdd_database")
 	col := db.Collection("user")
@@ -30,13 +32,17 @@ func ModifyUser(u models.User, ID string) (bool, error) {
 	if len(u.Email) > 0 {
 		register["mail"] = u.Email
 	}
-	register["birthdate"] = u.BirthDate
+
+	register["birth"] = u.BirthDate
 	uptdString := bson.M{
 		"$set": register,
 	}
 
 	objID, _ := primitive.ObjectIDFromHex(ID)
 	filter := bson.M{"_id": bson.M{"$eq": objID}}
+
+	fmt.Println("register", register)
+	fmt.Println("string", uptdString)
 
 	_, err := col.UpdateOne(ctx, filter, uptdString)
 

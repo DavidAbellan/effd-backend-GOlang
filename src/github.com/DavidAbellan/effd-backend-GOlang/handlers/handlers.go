@@ -15,6 +15,8 @@ import (
 /*routesHandler setea el puerto, Handler y pone a escuchar al servidor*/
 func RoutesHandler() {
 	router := mux.NewRouter()
+
+	router.HandleFunc("/question", middlew.DBCheck(middlew.TokenValidate(routers.SetQuestion))).Methods("POST")
 	router.HandleFunc("/signin", middlew.DBCheck(routers.SignIn)).Methods("POST")
 	router.HandleFunc("/login", middlew.DBCheck(routers.Login)).Methods("POST")
 	router.HandleFunc("/profile", middlew.DBCheck(middlew.TokenValidate(routers.ShowProfile))).Methods("GET")

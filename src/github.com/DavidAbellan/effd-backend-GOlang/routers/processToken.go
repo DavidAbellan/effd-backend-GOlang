@@ -11,7 +11,7 @@ import (
 
 /*Email y IdUsuario son variables globales para poder usar en todos los endpoints*/
 var Email string
-var IdUsuario string
+var IDUsuario string
 
 /*ProcessToken desencripta el token y comprueba que es valido*/
 func ProcessToken(tk string) (*models.Claim, bool, string, error) {
@@ -28,12 +28,13 @@ func ProcessToken(tk string) (*models.Claim, bool, string, error) {
 	})
 	if err == nil {
 		_, found, _ := bd.UserExists(claims.Email)
-		if found == true {
+		if found {
 			Email = claims.Email
-			IdUsuario = claims.ID.Hex()
+			IDUsuario = claims.ID.Hex()
 		}
-		return claims, found, IdUsuario, nil
+		return claims, found, IDUsuario, nil
 	}
+
 	if !tkn.Valid {
 		return claims, false, string(""), errors.New("invalid token")
 	}
